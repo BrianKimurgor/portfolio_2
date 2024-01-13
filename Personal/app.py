@@ -120,6 +120,17 @@ def testimonials():
     # Fetch all testimonials from the database to display
     all_testimonials = Testimonial.query.all()
     return render_template('testimonials.html', testimonials=all_testimonials)
+@app.route('/fetch-testimonials', methods=['GET'])
+def fetch_testimonials():
+    testimonials = Testimonial.query.all()
+    testimonial_list = [{
+        'name': testimonial.name,
+        'testimonial_text': testimonial.testimonial_text,
+        'photo_url': testimonial.photo_url,
+        'company': testimonial.company
+    } for testimonial in testimonials]
+    return jsonify(testimonial_list)
+
 
 # Additional routes can be added for updating and deleting projects and testimonials
 # For instance, routes like:
