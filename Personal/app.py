@@ -63,24 +63,44 @@ def contact():
 
 @app.route('/projects', methods=['GET', 'POST'])
 def projects():
-    if request.method == 'POST':
-        name = request.form['name']
-        description = request.form['description']
-        technologies_used = request.form['technologies_used']
-        image_urls = request.form['image_urls']
-        github_url = request.form['github_url']
-        live_url = request.form['live_url']
+    # Fetch all projects from the database
+    all_projects = Project.query.all()  # This assumes you have a Project model and it has a query.all() method
 
-        new_project = Project(name=name, description=description, technologies_used=technologies_used,
-                              image_urls=image_urls, github_url=github_url, live_url=live_url)
-        db.session.add(new_project)
-        db.session.commit()
-        flash('New project added successfully!', 'success')
-        return redirect(url_for('projects'))
-
-    # Fetch all projects from the database to display
-    all_projects = Project.query.all()
+    # Pass the projects list to the 'projects.html' template
     return render_template('projects.html', projects=all_projects)
+# def projects():
+#     if request.method == 'POST':
+#         name = request.form['name']
+#         description = request.form['description']
+#         technologies_used = request.form['technologies_used']
+#         image_urls = request.form['image_urls']
+#         github_url = request.form['github_url']
+#         live_url = request.form['live_url']
+
+#         new_project = Project(name=name, description=description, technologies_used=technologies_used,
+#                               image_urls=image_urls, github_url=github_url, live_url=live_url)
+#         db.session.add(new_project)
+#         db.session.commit()
+#         flash('New project added successfully!', 'success')
+#         return redirect(url_for('projects'))
+
+#     # Fetch all projects from the database to display
+#     all_projects = Project.query.all()
+#     return render_template('projects.html', projects=all_projects)
+
+# from flask import render_template
+
+
+@app.route('/project/<int:project_id>')
+def project_details(project_id):
+    # Fetch the project from the database based on the project_id
+    project = Project.query.get_or_404(project_id)
+
+    # Split the image URLs into a list to use in the template
+    image_urls = project.image_urls.split('assets/img/portfolio/portfolio-1.jpg", "assets/img/portfolio/portfolio-2.jpg", "assets/img/portfolio/portfolio-3.jpg')
+
+    return render_template('portfolio-details.html', project=project, image_urls=image_urls)
+
 
 @app.route('/testimonials', methods=['GET', 'POST'])
 def testimonials():
@@ -109,5 +129,6 @@ def testimonials():
 # - /testimonials/<int:id>/delete
 
 if __name__ == '__main__':
-    #db.create_all()
+    with app.app_context():  # This ensures that the following code runs within the app context
+        db.create_all()  # Create tables based on models
     app.run(debug=True)
