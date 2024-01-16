@@ -49,53 +49,7 @@
     />
   </head>
 
-  <body>
-    <main id="main">
-      <!-- ======= Portfolio Details ======= -->
-      <main id="main">
-        <!-- ======= Portfolio Details ======= -->
-        <div id="portfolio-details" class="portfolio-details">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8">
-                        <!-- Display Project Title -->
-                        <h2 class="portfolio-title">{{ project.name }}</h2>
 
-                        <!-- Display Project Images -->
-                        <div class="portfolio-details-slider swiper">
-                            <div class="swiper-wrapper align-items-center">
-                                {% for image_url in image_urls %}
-                                <div class="swiper-slide">
-                                    <img src="{{ url_for('static', filename=image_url) }}" alt="{{ project.name }}" />
-                                </div>
-                                {% endfor %}
-                            </div>
-                            <div class="swiper-pagination"></div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 portfolio-info">
-                        <!-- Display Project Information -->
-                        <h3>Project Information</h3>
-                        <ul>
-                            <li><strong>Description</strong>: {{ project.description }}</li>
-                            <li><strong>Technologies Used</strong>: {{ project.technologies_used }}</li>
-                            {% if project.github_url %}
-                            <li><strong>Github URL</strong>: <a href="{{ project.github_url }}" target="_blank">View on Github</a></li>
-                            {% endif %}
-                            {% if project.live_url %}
-                            <li><strong>Live URL</strong>: <a href="{{ project.live_url }}" target="_blank">View Live</a></li>
-                            {% endif %}
-                        </ul>
-                        <!-- You can add more project details here as needed -->
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Portfolio Details -->
-      <!-- End Portfolio Details -->
-    </main>
-    <!-- End #main -->
 
     <!-- Vendor JS Files -->
 

@@ -49,55 +49,6 @@
     />
   </head>
 
-  <body>
-    <body>
-        <main id="main">
-            <div id="portfolio-details" class="portfolio-details">
-                <div class="container">
-                    <div class="row">
-                        <!-- Loop through each project and display its details -->
-                        {% for project in projects %}
-                        <div class="col-lg-4">
-                            <div class="portfolio-item">
-                                <!-- Display Project Title -->
-                                <h2 class="portfolio-title">{{ project.name }}</h2>
-
-                                <!-- Display Project Images -->
-                                <div class="portfolio-details-slider swiper">
-                                    <div class="swiper-wrapper align-items-center">
-                                        {% for image_url in project.image_urls.split(',') %} <!-- Assuming image_urls are comma-separated -->
-                                        <div class="swiper-slide">
-                                            <img src="{{ url_for('static', filename=image_url.strip()) }}" alt="{{ project.name }}" />
-                                        </div>
-                                        {% endfor %}
-                                    </div>
-                                    <div class="swiper-pagination"></div>
-                                </div>
-
-                                <!-- Display Project Information -->
-                                <div class="portfolio-info">
-                                    <h3>Project Information</h3>
-                                    <ul>
-                                        <li><strong>Description</strong>: {{ project.description }}</li>
-                                        <li><strong>Technologies Used</strong>: {{ project.technologies_used }}</li>
-                                        {% if project.github_url %}
-                                        <li><strong>Github URL</strong>: <a href="{{ project.github_url }}" target="_blank">View on Github</a></li>
-                                        {% endif %}
-                                        {% if project.live_url %}
-                                        <li><strong>Live URL</strong>: <a href="{{ project.live_url }}" target="_blank">View Live</a></li>
-                                        {% endif %}
-                                    </ul>
-                                    <!-- You can add more project details here as needed -->
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-        </main>
-    <!-- End #main -->
-
     <!-- Vendor JS Files -->
 
     <script src="{{ url_for('static', filename='assets/vendor/purecounter/purecounter_vanilla.js') }}"></script>
