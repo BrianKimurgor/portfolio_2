@@ -1,5 +1,5 @@
 // about.js
-fetch('/api/about_data')
+fetch('/about')
     .then(response => {
         if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -19,5 +19,16 @@ fetch('/api/about_data')
 
         // Display additional information
         document.getElementById('additional-info').innerText = data.additional_info;
+
+        // Update the counts using PureCounter library
+        const counters = document.querySelectorAll('.purecounter');
+        counters.forEach(counter => {
+            counter.setAttribute('data-purecounter-end', data.counts_data[counter.id]);
+        });
+
+        // Initialize PureCounter
+        new PureCounter('.purecounter', {
+            duration: 1,
+        });
     })
     .catch(error => console.error('Error:', error));

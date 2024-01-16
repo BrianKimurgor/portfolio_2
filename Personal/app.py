@@ -6,19 +6,9 @@ app = Flask(__name__)
 def home():
     return render_template('index.html')
 
-# app.py
-@app.route('/api/home_data')
-def home_data():
-    # static data
-    data = {
-        'intro': " junior software engineer",
-    }
-    print(data)  # Add this line to print data to the console
-    return jsonify(data)
-
-
-@app.route('/api/about_data')
-def about_data():
+@app.route('/about')
+def about():
+    # Add your data here
     about_data = {
         'about_text': (
             "I'm a passionate software engineer and developer dedicated to leveraging technology "
@@ -34,8 +24,7 @@ def about_data():
             'city': 'Nairobi, Kenya',
             'age': 24,
             'degree': 'Computer Science',
-            'email': 'kimurgorbrian20@gmail.com',
-            'freelance': 'Available',
+            # Add more personal info here
         },
         'additional_info': (
             "Committed to continuous learning and professional "
@@ -44,8 +33,11 @@ def about_data():
             "coding, I enjoy exploring emerging technologies, participating in hackathons, and mentoring "
             "aspiring developers to inspire the next generation of innovators."
         ),
+        # Add more data as needed
     }
-    return jsonify(about_data)
+
+    return render_template('about.html', data=about_data)
+
 
 
 if __name__ == '__main__':
